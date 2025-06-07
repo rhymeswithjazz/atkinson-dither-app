@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atkinson Dither</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="desktop">
+        <div class="window">
+            <div class="title-bar">
+                <div class="title-bar-text">Atkinson Dither</div>
+                <div class="title-bar-controls">
+                    <button aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="window-body">
+                <div class="field-row">
+                    <label for="imageInput">Select Image:</label>
+                    <input type="file" id="imageInput" accept=".jpg,.jpeg,.png" />
+                </div>
+                <div class="field-row">
+                    <button id="processBtn" disabled>Apply Dither</button>
+                </div>
+                <div class="canvas-container">
+                    <div class="canvas-section">
+                        <h3>Original</h3>
+                        <canvas id="originalCanvas"></canvas>
+                    </div>
+                    <div class="canvas-section">
+                        <h3>Dithered</h3>
+                        <canvas id="ditheredCanvas"></canvas>
+                    </div>
+                </div>
+                <div class="field-row">
+                    <button id="downloadBtn" disabled>Download Dithered Image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
