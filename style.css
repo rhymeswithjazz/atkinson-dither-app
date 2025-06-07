@@ -3,6 +3,8 @@
 
 * {
     box-sizing: border-box;
+    -webkit-font-smoothing: none;
+    font-weight: bold;
 }
 
 body {
@@ -10,69 +12,133 @@ body {
     padding: 0;
     font-family: 'Chicago', 'Geneva', 'Helvetica', sans-serif;
     font-size: 12px;
-    background: #c0c0c0;
+    font-weight: bold;
+    background: #999999; /* Classic Mac desktop gray */
     overflow: hidden;
+    cursor: default;
+    user-select: none;
+}
+
+.menubar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: #ffffff; /* Solid white like System 7 */
+    border-bottom: 1px solid #000000;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.menu-item {
+    padding: 2px 8px;
+    cursor: pointer;
+    color: #000;
+    border-radius: 0; /* Classic Mac didn't have rounded corners */
+    margin-right: 8px;
+}
+
+.menu-item.active {
+    background: #000;
+    color: white;
+}
+
+.menu-item:active {
+    background: #000;
+    color: white;
+}
+
+.apple-menu {
+    background: transparent !important;
+    margin-right: 12px; /* More space after Apple menu */
+}
+
+.apple-menu:active,
+.apple-menu.clicked {
+    background: #000 !important;
+    color: white;
+}
+
+.apple-logo {
+    font-size: 14px;
+    color: #000;
+}
+
+.apple-menu:active .apple-logo,
+.apple-menu.clicked .apple-logo {
+    color: white;
 }
 
 .desktop {
     width: 100vw;
     height: 100vh;
-    background: #c0c0c0;
-    background-image: 
-        repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,.1) 2px, rgba(0,0,0,.1) 4px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding-top: 20px;
+    background: #999999; /* Classic Mac gray */
+    position: relative;
 }
 
 .window {
-    background: #c0c0c0;
-    border: 2px outset #c0c0c0;
-    min-width: 600px;
-    max-width: 90vw;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    background: #ffffff;
+    border: 1px solid #000000; /* Black border like classic Mac */
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.5); /* Classic Mac shadow */
+    min-width: 400px;
+    max-width: 500px;
+    width: 90%;
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    transition: box-shadow 0.1s ease;
 }
 
-.title-bar {
-    background: linear-gradient(to bottom, #ffffff 0%, #c0c0c0 100%);
-    border-bottom: 1px solid #808080;
-    padding: 4px 8px;
+.window.dragging {
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5); /* Enhanced shadow when dragging */
+    opacity: 0.9;
+}
+
+.title-bar-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    height: 20px;
+    justify-content: center;
+    height: 19px;
+    cursor: move;
+    background-color: white;
+    margin: 0 2px;
+}
+
+.title-bar-stripe {
+    background: #444 url("assets/black-bars.png") repeat;
+    height: 19px;
+    flex-grow: 1;
 }
 
 .title-bar-text {
     font-weight: bold;
-    font-size: 11px;
+    font-size: 12px;
     color: #000;
+    text-align: center;
+    padding: 0 10px;
+    white-space: nowrap;
 }
 
-.title-bar-controls button {
-    width: 16px;
-    height: 14px;
-    background: #c0c0c0;
-    border: 1px outset #c0c0c0;
-    font-size: 8px;
-    cursor: pointer;
-}
-
-.title-bar-controls button:active {
-    border: 1px inset #c0c0c0;
+.title-bar-border {
+    margin: 0 2px;
 }
 
 .window-body {
-    padding: 16px;
-    background: #c0c0c0;
+    padding: 1rem 2rem;
+    background: #ffffff;
 }
 
 .field-row {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
     gap: 8px;
+    font-weight: bold;
 }
 
 label {
@@ -83,70 +149,98 @@ label {
 input[type="file"] {
     flex: 1;
     padding: 2px;
-    border: 1px inset #c0c0c0;
+    border: 1px solid #000000;
     background: white;
     font-family: inherit;
-    font-size: 11px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
 }
 
 button {
-    padding: 4px 12px;
-    border: 2px outset #c0c0c0;
-    background: #c0c0c0;
+    padding: 3px 12px;
+    border: 1px solid #000000; 
+    border-radius: 4px;
+    background: #ffffff;
     font-family: inherit;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: bold;
     cursor: pointer;
     color: #000;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.2); /* Classic Mac button shadow */
+    text-align: center;
+    min-width: 60px;
 }
 
 button:active {
-    border: 2px inset #c0c0c0;
+    background: #cccccc;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
 }
 
 button:disabled {
-    color: #808080;
+    color: #999999;
     cursor: default;
-    border: 2px outset #c0c0c0;
+    opacity: 0.5;
 }
 
 .canvas-container {
     display: flex;
-    gap: 16px;
-    margin: 16px 0;
-    justify-content: space-around;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    width: 100%;
 }
 
 .canvas-section {
     text-align: center;
-    flex: 1;
+    width: 100%;
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .canvas-section h3 {
     margin: 0 0 8px 0;
     font-size: 12px;
     font-weight: bold;
+    width: 100%;
+    text-align: center;
 }
 
 canvas {
-    border: 2px inset #c0c0c0;
+    border: 1px solid #000000;
     background: white;
-    max-width: 250px;
-    max-height: 250px;
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    max-height: 300px;
     display: block;
     margin: 0 auto;
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,0.2);
 }
 
-#processBtn {
-    background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+#originalCanvas, #ditheredCanvas {
+    width: 80%;
+    max-width: 500px;
 }
 
-#downloadBtn {
-    background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 100%);
+#processBtn, #downloadBtn {
+    background: #ffffff;
 }
 
-/* Mac-style focus rings */
+/* Classic Mac focus rings - more subtle */
 input:focus, button:focus {
-    outline: 2px solid #0066cc;
-    outline-offset: 1px;
+    outline: 1px dotted #000000;
+    outline-offset: 0px;
+}
+
+.push-right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.flow > * + * {
+    margin-block-start: var(--flow-space, 1em);
 }

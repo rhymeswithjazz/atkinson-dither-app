@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atkinson Dither</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <div class="menubar">
+        <div class="menu-item apple-menu">
+            <span class="apple-logo">&#xF8FF;</span>
+        </div>
+        <div class="menu-item">File</div>
+        <div class="menu-item">Edit</div>
+        <div class="menu-item">Special</div>
+        <div class="menu-item">Help</div>
+    </div>
     <div class="desktop">
         <div class="window">
-            <div class="title-bar">
+            <div class="title-bar-container">
+                <div class="title-bar-stripe"></div>
                 <div class="title-bar-text">Atkinson Dither</div>
-                <div class="title-bar-controls">
-                    <button aria-label="Close"></button>
-                </div>
+                <div class="title-bar-stripe"></div>
             </div>
-            <div class="window-body">
+            <hr class="title-bar-border" />
+            <div class="window-body flow">
                 <div class="field-row">
                     <label for="imageInput">Select Image:</label>
                     <input type="file" id="imageInput" accept=".jpg,.jpeg,.png" />
@@ -33,7 +44,7 @@
                         <canvas id="ditheredCanvas"></canvas>
                     </div>
                 </div>
-                <div class="field-row">
+                <div class="field-row push-right">
                     <button id="downloadBtn" disabled>Download Dithered Image</button>
                 </div>
             </div>
@@ -41,4 +52,5 @@
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

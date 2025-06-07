@@ -9,6 +9,7 @@ class AtkinsonDither {
         this.ditheredCtx = this.ditheredCanvas.getContext('2d');
         
         this.setupEventListeners();
+        this.setupWindowDragging();
     }
     
     setupEventListeners() {
@@ -24,6 +25,88 @@ class AtkinsonDither {
         
         this.downloadBtn.addEventListener('click', () => {
             this.downloadImage();
+        });
+        
+        // Add menu item click effect
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('mousedown', () => {
+                if (item.classList.contains('apple-menu')) {
+                    item.classList.add('clicked');
+                } else {
+                    item.classList.add('active');
+                }
+            });
+            
+            item.addEventListener('mouseup', () => {
+                if (item.classList.contains('apple-menu')) {
+                    item.classList.remove('clicked');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        });
+        
+        // Add close button functionality
+        const closeBox = document.querySelector('.close-box');
+        if (closeBox) {
+            closeBox.addEventListener('click', () => {
+                const window = document.querySelector('.window');
+                
+                // Apply closing animation
+                window.style.transition = 'transform 0.3s, opacity 0.3s';
+                window.style.transformOrigin = 'center center';
+                window.style.transform = 'scale(0.9)';
+                window.style.opacity = '0';
+                
+                // Reset after animation
+                setTimeout(() => {
+                    window.style.display = 'none';
+                    setTimeout(() => {
+                        window.style.transition = '';
+                        window.style.transform = 'scale(1)';
+                        window.style.opacity = '1';
+                        window.style.display = 'block';
+                    }, 500);
+                }, 300);
+            });
+        }
+    }
+    
+    setupWindowDragging() {
+        const window = document.querySelector('.window');
+        const titleBarContainer = document.querySelector('.title-bar-container');
+        let isDragging = false;
+        let offsetX, offsetY;
+        
+        titleBarContainer.addEventListener('mousedown', (e) => {
+            // Don't start drag if clicking the close button
+            if (e.target.classList.contains('close-box')) return;
+            
+            isDragging = true;
+            offsetX = e.clientX - window.getBoundingClientRect().left;
+            offsetY = e.clientY - window.getBoundingClientRect().top;
+            
+            // Add dragging class for styling
+            window.classList.add('dragging');
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            
+            const x = e.clientX - offsetX;
+            const y = e.clientY - offsetY;
+            
+            // Keep window within viewport bounds
+            const maxX = window.parentElement.clientWidth - window.clientWidth;
+            const maxY = window.parentElement.clientHeight - window.clientHeight;
+            
+            window.style.left = `${Math.max(0, Math.min(maxX, x))}px`;
+            window.style.top = `${Math.max(20, Math.min(maxY, y))}px`;
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            window.classList.remove('dragging');
         });
     }
     
@@ -42,7 +125,7 @@ class AtkinsonDither {
     
     displayOriginalImage(img) {
         // Calculate dimensions to fit within canvas while maintaining aspect ratio
-        const maxSize = 250;
+        const maxSize = 350;
         let { width, height } = this.calculateDimensions(img.width, img.height, maxSize);
         
         this.originalCanvas.width = width;
